@@ -27,9 +27,6 @@ public class Main {
 			if(str.charAt(idx) == str.charAt(idx-1)){
 				idx++;
 				count++;
-				if(count>1 && idx == str.length()){
-					s = s+count;
-				}
 			}else{
 				if(count>1){
 					s = s+count;
@@ -39,6 +36,9 @@ public class Main {
 				idx++;
 			}
 		}
+		if(count>1){
+					s = s+count;
+				}
 
 		return s;
 	}
