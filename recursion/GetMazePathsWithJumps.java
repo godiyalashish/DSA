@@ -11,13 +11,13 @@ public class Main {
         System.out.println(getMazePaths(0,0,n-1,m-1));
     }
 
-    // sr - source row
+    // sr - sourcce row
     // sc - source column
     // dr - destination row
     // dc - destination column
     public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
 
-        if(sr == dr && sc == dc){
+        if(sr == dr && sc==dc){
             ArrayList<String> base = new ArrayList<String>();
             base.add("");
             return base;
