@@ -38,6 +38,23 @@ public class Main {
             }
 
         }
+
+        void delete(){
+            if(this.size == 0){
+                System.out.println("List is empty");
+            }
+            else if(this.size == 1){
+                this.head = null;
+                this.tail = null;
+                this.size = 0;
+            }else{
+                Node temp = this.head;
+                this.head = this.head.next;
+                this.size--;
+                temp.next = null;
+            }
+
+        }
     }
     public static void main(String[] args) {
         // Person p1 = new Person();
