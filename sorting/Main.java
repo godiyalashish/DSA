@@ -29,4 +29,26 @@ class Solution {
             }
         }
     }
+
+    // return true if jth element is greater than ith element
+  public static boolean isGreater(int[] arr, int j, int i) {
+    if (arr[i] < arr[j]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public static void insertionSort(int[] arr) {
+    //write your code here
+    int n = arr.length;
+    for(int i=1; i<n; i++){
+      for(int j=i; j>0; j--){
+        if(isGreater(arr, j-1, j)){
+          swap(arr,j-1,j);
+        }else break;
+      }
+    }
+    
+  }
 }
