@@ -158,7 +158,7 @@ class Solution {
         ListNode curr = head.next;
         
         while(curr != null){
-            if(curr.val != prev.val){ // unique
+            if(curr.val != prev.val){
                 prev.next = curr;
                 prev = curr;
             }
