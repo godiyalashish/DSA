@@ -21,7 +21,6 @@ public class Main {
     }
 
     int remove() {
-      // write your code here
       if(list.size() == 0){
         System.out.println("Queue underflow");
         return -1;
@@ -31,7 +30,6 @@ public class Main {
     }
 
     int peek() {
-      // write your code here
       if(list.size() == 0){
         System.out.println("Queue underflow");
         return -1;
