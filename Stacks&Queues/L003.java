@@ -15,7 +15,6 @@ public class Main{
     }
 
     void display() {
-        if(size == 0) return;
         for(int i = 0 ; i < size ; i++){
             System.out.print(data[(front+i)%data.length]+" ");
         }
@@ -24,8 +23,18 @@ public class Main{
 
     void add(int val) {
         if(size == data.length){
-            System.out.println("Queue overflow");
-            return;
+            // // dynamic behaviour
+            int arr[] = new int[2 * data.length];
+
+            for(int i = 0 ; i < size ; i++){
+              arr[i] = data[(front+i)%data.length];
+            }
+
+            front = 0; // starting point 
+            this.data = arr; // address change 
+
+            // System.out.println("Queue overflow");
+            // return;
         }
         int idx = (front + size) % data.length;
         data[idx] = val;
@@ -52,6 +61,55 @@ public class Main{
 
         int val = data[front];
         return val;
+    }
+  }
+  public static class QueueToStackAdapter {
+    Queue<Integer> mainQ;
+    Queue<Integer> helperQ;
+
+    public QueueToStackAdapter() {
+      mainQ = new ArrayDeque<>();
+      helperQ = new ArrayDeque<>();
+    }
+
+    int size() {
+        return mainQ.size();
+    }
+
+    void push(int val) {
+      mainQ.add(val);
+    }
+
+    int pop() {
+      if(mainQ.size() == 0){
+          System.out.println("Stack underflow");
+          return -1;
+      }
+      while(mainQ.size() > 1){
+        helperQ.add(mainQ.remove());
+      }
+      int val = mainQ.remove();
+      Queue<Integer> tmpQ = mainQ;
+      mainQ = helperQ;
+      helperQ = tmpQ;
+
+      return val;
+    }
+    int top() {
+      if(mainQ.size() == 0){
+          System.out.println("Stack underflow");
+          return -1;
+      }
+      while(mainQ.size() > 1){
+        helperQ.add(mainQ.remove());
+      }
+      int val = mainQ.remove();
+      helperQ.add(val);
+      Queue<Integer> tmpQ = mainQ;
+      mainQ = helperQ;
+      helperQ = tmpQ;
+
+      return val;
     }
   }
 }
