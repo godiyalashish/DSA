@@ -43,6 +43,40 @@ public class Main{
             display(child);
         }
     }
+
+    public static void levelOrderLinewiseZZ(Node node){
+        //HomeWork
+        Stack <Node> ms = new Stack<>();
+        Stack <Node> hs = new Stack<>();
+    
+        ms.push(node);
+        int level = 0;
+    
+        while(ms.size() > 0){
+          if(level%2 == 0){
+            Node rem = ms.pop();
+            System.out.print(rem.data+" ");
+            for (Node n : rem.children) {
+              hs.push(n);
+            }
+          }else{
+            Node rem = ms.pop();
+            System.out.print(rem.data+" ");
+            for(int i=rem.children.size()-1; i>=0; i--){
+              hs.push(rem.children.get(i));
+            }
+          }
+    
+          if(ms.size() == 0){
+            level++;
+            Stack <Node> ts = ms;
+            ms = hs;
+            hs = ts;
+            System.out.println();
+          }
+        }
+      }
+
     public static void traversals(Node node){
         System.out.println("Node Pre "+node.data);
 
