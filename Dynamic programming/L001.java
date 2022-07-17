@@ -11,7 +11,7 @@ public class Main{
         if(n == 0 || n == 1){
             return mem[n] = n;
         }
-        if(mem[n] != 0){ // already calculated
+        if(mem[n] != 0){ 
             return mem[n];
         }
         int ans = fib_mem(n-1,mem)+fib_mem(n-2,mem);
