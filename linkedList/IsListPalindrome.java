@@ -1,3 +1,7 @@
+//break list into two parts after the mid point and then reverse the another part 
+//the compare those two LL elements for palindrome
+
+
 class Solution {
     public boolean isPalindrome(ListNode head) {
         if(head == null || head.next == null) return true;
