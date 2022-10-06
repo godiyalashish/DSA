@@ -1,60 +1,67 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     class Pair{
         TreeNode node;
-        int count;
-        Pair(TreeNode node, int count){
+        int vlev;
+        Pair(TreeNode node, int vlev){
             this.node = node;
-            this.count = count;
+            this.vlev = vlev;
         }
     }
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        HashMap<Integer, PriorityQueue<Integer>> hm = new HashMap<>();
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
         Queue<Pair> q = new ArrayDeque<>();
-        int max=0, min =0;
-        List<List<Integer>> ans = new ArrayList<>();
-        if(root == null) return ans;
-        
         q.add(new Pair(root, 0));
-        while(q.size() > 0){
-            Pair rem = q.remove();
-            if(hm.containsKey(rem.count)){
-                PriorityQueue<Integer> list = hm.get(rem.count);
+        while(q.size()>0){
+            HashMap<Integer, ArrayList<Integer>> tmap = new HashMap<>();
+            int lsize = q.size();
+            while(lsize != 0){
+                Pair rem = q.remove();
+                if(rem.node.left != null)q.add(new Pair(rem.node.left, rem.vlev-1));
+                if(rem.node.right != null)q.add(new Pair(rem.node.right, rem.vlev+1));
+                lsize--;
+                ArrayList<Integer>list = tmap.get(rem.vlev);
+                if(list == null){
+                    list = new ArrayList<>();
+                    tmap.put(rem.vlev, list);
+                }
                 list.add(rem.node.val);
-            }else{
-                PriorityQueue<Integer> list = new PriorityQueue<>();
-                list.add(rem.node.val);
-                hm.put(rem.count, list);
             }
-            min = Math.min(min, rem.count);
-            max = Math.max(max, rem.count);
-            if(rem.node.left != null) q.add(new Pair(rem.node.left, rem.count-1));
-            if(rem.node.right != null) q.add(new Pair(rem.node.right, rem.count+1));
+            MergeWithMap(map, tmap);
+        }
+        return createOutput(map);
+    }
+    
+    public void MergeWithMap(HashMap<Integer,ArrayList<Integer>>map, HashMap<Integer,ArrayList<Integer>>tmap){
+        for(Integer vlev : tmap.keySet()){
+            ArrayList<Integer> list = tmap.get(vlev);
+            ArrayList<Integer> mlist = map.get(vlev);
+            
+            if(mlist == null){
+                mlist = new ArrayList<>();
+                map.put(vlev, mlist);
+            }
+            Collections.sort(list);
+            for(int val : list){
+                mlist.add(val);
+            }
+        }
+    }
+    
+    public  List<List<Integer>> createOutput(HashMap<Integer,ArrayList<Integer>>map){
+        List<List<Integer>> list = new ArrayList<>();
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        
+        for(Integer vlev : map.keySet()){
+            max = Math.max(vlev, max);
+            min = Math.min(vlev, min);
         }
         
         while(min <= max){
-            PriorityQueue<Integer> pq = hm.get(min);
-            ArrayList<Integer> l = new ArrayList<>();
-            while(pq.size()>0){
-                l.add(pq.remove());
-            }
-            ans.add(l);
+            List<Integer> tlist = map.get(min);
+            list.add(tlist);
             min++;
         }
-        return ans;
+        return list;
     }
 }

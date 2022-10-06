@@ -58,3 +58,23 @@ class Solution {
         return root;
     }
 }
+
+//solution only for perfect binary tree 
+class Solution {
+    public Node connect(Node root) {
+        if(root == null)return null;
+        Node start = root;
+        while(start != null && start.left != null){
+            Node node = start;
+            while(node != null){
+                node.left.next = node.right;
+                if(node.next != null){
+                    node.right.next = node.next.left;
+                }
+                node = node.next;
+            }
+            start = start.left;
+        }
+        return root;
+    }
+}
