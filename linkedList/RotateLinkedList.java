@@ -18,7 +18,7 @@ class Solution {
             return head;
         }
         ListNode fast = head, slow = head;
-        int r= k;
+        int r = k;
         while(r != 0){
             fast = fast.next;
             r--;
