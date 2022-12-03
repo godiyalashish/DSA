@@ -43,4 +43,6 @@ public static void main(String[] args) throws Exception {
    return arr;
  }
 
+}public class nextGreaterElement {
+    
 }
