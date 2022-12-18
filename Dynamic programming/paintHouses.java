@@ -23,4 +23,6 @@ public class Main {
         }
         System.out.print(Math.min(dp[n-1][0], Math.min(dp[n-1][1], dp[n-1][2])));
     }
+}public class paintHouses {
+    
 }
